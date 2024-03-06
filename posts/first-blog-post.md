@@ -4,7 +4,9 @@ published_at: 2024-03-06
 snippet: This is my first ever blog in github hehe.
 ---
 
-Hello, world!
+Hello, Welcome to my blog
+This is my first ever vlog on this thing 
+I hope that it will worls
 
 # This is h1
 
