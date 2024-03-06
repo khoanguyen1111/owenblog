@@ -7,6 +7,7 @@ snippet: This is my first ever blog in github hehe.Hello, Welcome to my blog
 Hello, Welcome to my blog
 This is my first ever vlog on this thing 
 I hope that it will worls
+![melbourne view](/pic/Melburnian_Skyline.jpg)
 
 # This is h1
 
