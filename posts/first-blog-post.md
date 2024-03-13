@@ -1,10 +1,9 @@
 ---
-
 title: 1st blog hehe
 published_at: 2024-03-06
 snippet: This is my first ever blog in github hehe.Hello, Welcome to my blog
 disable_html_sanitization: true
---
+---
 
 This is a random change!! wow so random
 
