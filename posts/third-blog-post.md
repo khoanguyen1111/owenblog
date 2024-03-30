@@ -15,3 +15,46 @@ Effective complexity was first introduced by two physicists, Murray Gell-Mand an
 Rafael Rozendaal's artwork titled “pink yellow blue” from my understanding can be categorized as cute in aesthetic. Cute like Sianne Ngai's point of view can be manipulative in emotions and can be seen as vulnerable. “pink yellow blue” Chose three light colors that not only calm your eyes but appeal to the emotions of innocence. From an effective complexity point of view, this project is well balanced because even though we can predict that color will change it only happens after we observe it for a long time to find a pattern. “pink yellow blue” Has its own level of randomness but not to imbalance so that the ball bounces create chaos for the whole art piece. This artwork if I were to re-create it I would love to keep the pastel color, it makes me think about the cute concept. In addition, the idea of randomness in the way that the color changes and the shape bounce off each other.
 
 <iframe src="https://www.pinkyellowblue.com/" width="100%"></iframe>
+
+
+p/s: Rembered last week I didn't do my homework because I did not know how to the work "falling falling" that I have to put the code into class. As of this update it is on the 30th of March, I understand it now (to a certain degreee....) and I have put it in week 3 blog post
+```
+class Faller {
+  constructor (bg) {
+    this.colours = [ bg, rand_col () ]
+    this.start_points = [
+      { x: 0, y: height / 2 },
+      { x: 0, y: 0 },
+      { x: width / 4, y: 0 },
+      { x: width / 2, y: 0 },
+      { x: width * 3 / 4, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: height / 2 },
+    ]
+    this.end_points=[]
+    for( let i=1; i<8;i++){
+      this.end_points.push({
+        x:i*width/8,
+        y:height
+      })
+    }
+    this.curves = new Array(7).fill().map(rand_curve)
+    this.phase = 0
+  }
+  
+  draw(){
+    colorMode(RGB)
+    fill (lerpColor(this.colours[0],this.colours[1],this.phase))
+    beginShape()
+    vertex(0,height)
+    this.start_points.forEach((s,i) => {
+      const p = find.point (s, this.end_points[i], this.phase ** this.curves[i])
+      vertex (p.x,p.y)
+    })
+    vertex (width, height)
+    endShape()
+    this.phase += 0.008
+  }
+}
+```
+
