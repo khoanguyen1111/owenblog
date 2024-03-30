@@ -49,7 +49,71 @@ function draw() {
 
  Moving to YouTube, I found multiple tutorials, which helped me to understand the concept further. I found Patt Vira's tutorial on how to make a wave pattern and learned from her then.
  <iframe width="560" height="315" src="https://www.youtube.com/embed/DNZPyoMBiFw?si=u8zOMv2nekdR75x6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-Vira’s explanation is simple but details due to her experience so I understand most of the materials due to some of the materials requiring higher understanding. The tutorial helped me understand more information and materials hence my demo was created. Although, her tutorial was amazing however the result was not the one I wanted to create. I wanted to add vibrant color to this plain black-and-white background. I looked up a tutorial on how to add random colors to the circle and the background. Since I created randomness hence I decided to choose random colors for the wave circle so that every time user refreshes it will be a new set of waves. I added the noStroke function to the code so that it does not have the black trails behind but the trails will be to the colors of the dot.
+Vira’s explanation is simple but details due to her experience so I understand most of the materials due to some of the materials requiring higher understanding. The tutorial helped me understand more information and materials hence my demo was created.
+sketch.js demo
+```
+let c;
+let grid=[]; 
+let cols=20;
+let rows=20;
+let loc=50; 
+
+function setup() {
+  createCanvas(innerWidth,innerHeight);
+let rowSize=height/rows;
+let colSize=width/cols;
+    
+  for (let i=0; i<cols; i++){
+    grid[i]=[]; 
+    for (let j=0; j<rows; j++){
+      grid[i][j]=new Cell(colSize/2+i*colSize,rowSize/2+j*rowSize, rowSize/2, i*loc+j*loc);// spacing of the circles
+
+    }
+  }
+}
+
+function draw() {
+  background(0);
+ for (let i=0; i<cols; i++){
+    for (let j=0; j<rows; j++){
+      grid[i][j].update();
+      grid[i][j].display();
+      
+    }
+  }
+}
+```
+cell class demo
+
+```
+class Cell{ //create a class for the circle cell
+  constructor(x0,y0, r, angle){ 
+//x0 and y0 are the center of the circle in motion
+    this.r=90; //radius of the circke
+    this.angle= angle;
+    this.x0 = x0;
+    this.y0 = y0;
+  }
+  update(){ //update the location of the circle
+    this.x=this.r*cos(this.angle);
+    this.y=this.r*sin(this.angle);
+    this.angle += 0.01; 
+  }
+  
+  display(){ //drawing the circle cell
+    fill(this.color);
+    // ellipse(this.x0, this.y0, this.r*2, this.r*2);
+    // line(this.x0,this.y0, this.x0+this.x,this.y0+this.y);
+    ellipse( this.x0+this.x, this.y0+this.y,15,15);
+    
+  }
+}
+```
+<iframe src="https://editor.p5js.org/khoanguyen1111/full/aN8_YN4Wx"width="100%"></iframe>
+
+ Although, her tutorial was amazing however the result was not the one I wanted to create. I wanted to add vibrant color to this plain black-and-white background. I looked up a tutorial on how to add random colors to the circle and the background. Since I created randomness hence I decided to choose random colors for the wave circle so that every time user refreshes it will be a new set of waves. I added the noStroke function to the code so that it does not have the black trails behind but the trails will be to the colors of the dot.
+
+
 
 Lastly, I fixed the leftover code and styled it so that it would be well-presented to look at and added comments so that people could understand what is the meaning of the code. I look back at my code and I am happy with what I understand and put my knowledge into this assessment. Even though I am happy I can’t wait to listen to all the feedback since I know that I made one are many mistakes in this assignment, so that I can improve in the future assessment.
 
