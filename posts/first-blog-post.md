@@ -1,5 +1,5 @@
 ---
-title: 1st blog hehe
+title: 1st Blog hehe
 published_at: 2024-03-06
 snippet: This is my first ever blog in github hehe.Hello, Welcome to my blog
 disable_html_sanitization: true
