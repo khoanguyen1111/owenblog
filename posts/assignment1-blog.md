@@ -19,4 +19,5 @@ Vira’s explanation is simple but details due to her experience so I understand
 
 Lastly, I fixed the leftover code and styled it so that it would be well-presented to look at and added comments so that people could understand what is the meaning of the code. I look back at my code and I am happy with what I understand and put my knowledge into this assessment. Even though I am happy I can’t wait to listen to all the feedback since I know that I made one are many mistakes in this assignment, so that I can improve in the future assessment.
 
-<iframe src="https://editor.p5js.org/khoanguyen1111/full/bCslGQyPm"></iframe>
+Here is what I did, take a look!
+<iframe src="https://editor.p5js.org/khoanguyen1111/full/bCslGQyPm" width="100%" height="50%"></iframe>
