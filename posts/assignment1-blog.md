@@ -113,6 +113,31 @@ class Cell{ //create a class for the circle cell
 
  Although, her tutorial was amazing however the result was not the one I wanted to create. I wanted to add vibrant color to this plain black-and-white background. I looked up a tutorial on how to add random colors to the circle and the background. Since I created randomness hence I decided to choose random colors for the wave circle so that every time user refreshes it will be a new set of waves. I added the noStroke function to the code so that it does not have the black trails behind but the trails will be to the colors of the dot.
 
+```
+class Cell{ //create a class for the circle cell
+  constructor(x0,y0, r, angle){ 
+//x0 and y0 are the center of the circle in motion
+    this.r=90; //radius of the circke
+    this.angle= angle;
+    this.x0 = x0;
+    this.y0 = y0;
+    this.color = color(random(255), random(255), random(255));
+  }
+```
+
+```
+ display(){ //drawing the circle cell
+    fill(this.color);
+    noStroke()
+    // fill(225);
+    
+    // ellipse(this.x0, this.y0, this.r*2, this.r*2);
+    // line(this.x0,this.y0, this.x0+this.x,this.y0+this.y);
+    ellipse( this.x0+this.x, this.y0+this.y,15,15);
+    
+  }
+}
+```
 
 
 Lastly, I fixed the leftover code and styled it so that it would be well-presented to look at and added comments so that people could understand what is the meaning of the code. I look back at my code and I am happy with what I understand and put my knowledge into this assessment. Even though I am happy I can’t wait to listen to all the feedback since I know that I made one are many mistakes in this assignment, so that I can improve in the future assessment.
