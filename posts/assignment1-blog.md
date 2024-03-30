@@ -15,7 +15,7 @@ Firstly, for week 3 homework, I was told to look at one of Rozendaal's works and
  Those two examples from my point of view have the vision of a wave but seeing upfront but since I already have the code for “falling falling” I would like to do something better. 
 
 Secondly, I started to find examples from the internet starting with the p5js library and Youtube. In the library, I found out there is a wavemaker code that was already built and I did try it out for inspiration.
-'''
+
 let t = 0; // time variable
 
 function setup() {
