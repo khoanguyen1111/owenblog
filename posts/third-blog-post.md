@@ -1,5 +1,5 @@
 ---
-title: 3rd blog hehe
+title: 3rd Blog hehe
 published_at: 2024-03-29
 snippet: Third week recap
 disable_html_sanitization: true
