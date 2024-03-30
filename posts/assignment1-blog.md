@@ -129,7 +129,7 @@ class Cell{ //create a class for the circle cell
  display(){ //drawing the circle cell
     fill(this.color);
     noStroke()
-    // fill(225);
+    
     
     // ellipse(this.x0, this.y0, this.r*2, this.r*2);
     // line(this.x0,this.y0, this.x0+this.x,this.y0+this.y);
