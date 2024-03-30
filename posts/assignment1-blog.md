@@ -16,38 +16,13 @@ Firstly, for week 3 homework, I was told to look at one of Rozendaal's works and
 
 Secondly, I started to find examples from the internet starting with the p5js library and Youtube. In the library, I found out there is a wavemaker code that was already built and I did try it out for inspiration.
 
-'''
-let t = 0; // time variable
+'''let t = 0; // time variable
 
 function setup() {
   createCanvas(600, 600);
   noStroke();
   fill(40, 200, 40);
-}
-
-function draw() {
-  background(10, 10); // translucent background (creates trails)
-
-  // make a x and y grid of ellipses
-  for (let x = 0; x <= width; x = x + 30) {
-    for (let y = 0; y <= height; y = y + 30) {
-      // starting point of each circle depends on mouse position
-      const xAngle = map(mouseX, 0, width, -4 * PI, 4 * PI, true);
-      const yAngle = map(mouseY, 0, height, -4 * PI, 4 * PI, true);
-      // and also varies based on the particle's location
-      const angle = xAngle * (x / width) + yAngle * (y / height);
-
-      // each particle moves in a circle
-      const myX = x + 20 * cos(2 * PI * t + angle);
-      const myY = y + 20 * sin(2 * PI * t + angle);
-
-      ellipse(myX, myY, 10); // draw particle
-    }
-  }
-
-  t = t + 0.01; // update time
-}
-'''
+}''
 
  Moving to YouTube, I found multiple tutorials, which helped me to understand the concept further. I found Patt Vira's tutorial on how to make a wave pattern and learned from her then. Vira’s explanation is simple but details due to her experience so I understand most of the materials due to some of the materials requiring higher understanding. The tutorial helped me understand more information and materials hence my demo was created. Although, her tutorial was amazing however the result was not the one I wanted to create. I wanted to add vibrant color to this plain black-and-white background. I looked up a tutorial on how to add random colors to the circle and the background. Since I created randomness hence I decided to choose random colors for the wave circle so that every time user refreshes it will be a new set of waves. I added the noStroke function to the code so that it does not have the black trails behind but the trails will be to the colors of the dot.
 
