@@ -4,12 +4,15 @@ published_at: 2024-03-29
 snippet: Sixth week demo in class
 disable_html_sanitization: true
 ---
+
 ## This is a in class demo blog
 
 <script src="/script/c2.js"></script>;
 
 <canvas id='c2'/>
-<scrip>
+
+<script>
+console.log ('hi')
 // by Ren Yuan
 
 const renderer = new c2.Renderer(document.getElementById('c2'));
@@ -18,12 +21,11 @@ resize();
 renderer.background('#cccccc');
 let random = new c2.Random();
 
-
 class Agent extends c2.Point {
-    constructor() {
-        let x = random.next(renderer.width);
-        let y = random.next(renderer.height);
-        super(x, y);
+constructor() {
+let x = random.next(renderer.width);
+let y = random.next(renderer.height);
+super(x, y);
 
         this.vx = random.next(-2, 2);
         this.vy = random.next(-2, 2);
@@ -54,14 +56,14 @@ class Agent extends c2.Point {
         renderer.lineWidth(5);
         renderer.point(this.x, this.y);
     }
+
 }
 
 let agents = new Array(20);
 for (let i = 0; i < agents.length; i++) agents[i] = new Agent();
 
-
 renderer.draw(() => {
-    renderer.clear();
+renderer.clear();
 
     let delaunay = new c2.Delaunay();
     delaunay.compute(agents);
@@ -85,18 +87,18 @@ renderer.draw(() => {
         renderer.fill(color);
         renderer.triangle(triangles[i]);
     }
-    
+
 
     for (let i = 0; i < agents.length; i++) {
         agents[i].display();
         agents[i].update();
     }
-});
 
+});
 
 window.addEventListener('resize', resize);
 function resize() {
-    let parent = renderer.canvas.parentElement;
-    renderer.size(parent.clientWidth, parent.clientWidth / 16 * 9);
+let parent = renderer.canvas.parentElement;
+renderer.size(parent.clientWidth, parent.clientWidth / 16 \* 9);
 }
 </script>
