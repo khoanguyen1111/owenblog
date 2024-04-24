@@ -5,7 +5,9 @@ snippet: Three.js showcasing
 disable_html_sanitization: true
 ---
 
-import * as THREE from 'three';
+<div id="three_container"></div>
+<script type="module">
+import * as THREE from '';
 import {
   OrbitControls
 } from 'three/examples/jsm/controls/OrbitControls';
