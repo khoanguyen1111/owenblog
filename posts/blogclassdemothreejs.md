@@ -1,104 +1,90 @@
 ---
-title: Demo Three.js
+title: Demo c2.js
 published_at: 2024-03-30
-snippet: Three.js showcasing
+snippet: demo c2js showcasing
 disable_html_sanitization: true
 ---
 
 hello hello
 
-<div id="three_container"></div>
+<script src="/script/c2.js"></script>
 
-<script type="module">
-console.log ("hello")
+<canvas id="c2"></canvas>
+
+<script>
+// console.log(c2)
+//Created by Ren Yuan
+console.log("helllloooooo");
+
+const renderer = new c2.Renderer(document.getElementById('c2'));
+resize();
+
+renderer.background('#cccccc');
+let random = new c2.Random();
 
 
-import * as THREE from '/threejs/three';
-import {u
-  OrbitControls
-} from 'three/examples/jsm/controls/OrbitControls';
-import Stats from 'three/examples/jsm/libs/stats.module';
-import {
-  GUI
-} from 'dat.gui';
+let world = new c2.World(new c2.Rect(0, 0, renderer.width, renderer.height));
 
+createTree(createParticle(), 0);
 
-const scene = new THREE.Scene()
+function createParticle(){
+    let x = random.next(renderer.width);
+    let y = random.next(renderer.height);
+    let p = new c2.Particle(x, y);
+    p.radius = random.next(10, renderer.height/15);
+    p.mass = p.radius
+    p.color = c2.Color.hsl(random.next(0, 30), random.next(30, 60), random.next(20, 100));
+    world.addParticle(p);
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
-camera.position.set(0, 0.75, 1.5)
+    return p;
+}
 
-const renderer = new THREE.WebGLRenderer()
-renderer.setSize(window.innerWidth, window.innerHeight)
-document.body.appendChild(renderer.domElement)
+function createTree(parent, level){
+  if(level==3) return;
 
-const controls = new OrbitControls(camera, renderer.domElement)
-controls.enableDamping = true
+  for(let i=0; i<3; i++){
+    let p = createParticle();
 
-function twist(geometry, factor) {
-  const q = new THREE.Quaternion();
-  const up = new THREE.Vector3(0, 1, 0);
-  const p = geometry.attributes.position.array;
+    let s = new c2.Spring(parent, p);
+    s.length = (parent.radius + p.radius) * 2;
+    world.addSpring(s);
 
-  for (let i = 0; i < p.length; i += 3) {
-    q.setFromAxisAngle(
-      up,
-      p[i + 1] * factor
-    );
-
-    let vec = new THREE.Vector3(p[i], p[i + 1], p[i + 2])
-    vec.applyQuaternion(q);
-
-    p[i] = vec.x
-    p[i + 2] = vec.z
+    createTree(p, level+1);
   }
-
-  geometry.computeVertexNormals()
-  geometry.attributes.position.needsUpdate = true;
 }
 
-let geometry = new THREE.BoxGeometry(1, 1, 1, 10, 10, 10)
-twist(geometry, Math.PI / 2)
-const twistedCube = new THREE.Mesh(geometry, new THREE.MeshNormalMaterial({
-  wireframe: true
-}))
-scene.add(twistedCube)
 
-window.addEventListener(
-  'resize',
-  () => {
-    camera.aspect = window.innerWidth / window.innerHeight
-    camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
-  },
-  false
-)
+let gravitation = new c2.Gravitation(-10);
+gravitation.range(10);
+world.addInteractionForce(gravitation);
 
-let data = {
-  t: Math.PI / 2
+
+renderer.draw(() => {
+    renderer.clear();
+
+    world.update();
+
+    for(let i=0; i<world.springs.length; i++){
+      let s = world.springs[i];
+      renderer.stroke('#333333');
+      renderer.lineWidth(s.length/30);
+      renderer.line(s.p1.position.x, s.p1.position.y,
+                    s.p2.position.x, s.p2.position.y);
+    }
+
+    for(let i=0; i<world.particles.length; i++){
+      let p = world.particles[i];
+      renderer.stroke('#333333');
+      renderer.lineWidth(1);
+      renderer.fill(p.color);
+      renderer.circle(p.position.x, p.position.y, p.radius);
+    }
+});
+
+
+window.addEventListener('resize', resize);
+function resize() {
+    let parent = renderer.canvas.parentElement;
+    renderer.size(parent.clientWidth, parent.clientWidth / 16 * 9);
 }
-
-const gui = new GUI();
-gui.add(data, "t", -Math.PI, Math.PI, 0.01).onChange((t) => {
-  twistedCube.geometry.dispose()
-  geometry = new THREE.BoxGeometry(1, 1, 1, 10, 10, 10)
-  twist(geometry, t)
-  twistedCube.geometry = geometry
-})
-gui.open();
-
-const stats = Stats()
-document.body.appendChild(stats.dom)
-
-var animate = function() {
-  requestAnimationFrame(animate)
-  controls.update()
-  render()
-  stats.update()
-}
-
-function render() {
-  renderer.render(scene, camera)
-}
-
-animate()
+</script>
