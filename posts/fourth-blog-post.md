@@ -9,33 +9,134 @@ disable_html_sanitization: true
 
 ## I am excited so I have this extra line but here we go
 
-<canvas id="canvas"></canvas>
+<canvas id='fractal_tree'></canvas>
 
-<script>
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
+<script type='module'>
+
+    // get and format canvas
+    const cnv = document.getElementById('fractal_tree');
+    const width = cnv.parentNode.scrollWidth;
+    const height = width * 9 / 16;
+    cnv.width = width;
+    cnv.height = height;
+
+    // get canvas context
+    const ctx = cnv.getContext('2d');
+
+    let p0 = {
+        x: width / 2,
+        y: height - 50
+    };
+    let p1 = {
+        x: width / 2,
+        y: 50
+    };
+    let branchAngle = Math.PI / 4;
+    let trunkRatio = 0.5;
+
     
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    tree(p0, p1, 15);
 
-    // Function to draw the tree
-    function drawTree(x, y, length, angle, depth) {
-        if (depth === 0) return;
-
-        const x1 = x + length * Math.cos(angle);
-        const y1 = y + length * Math.sin(angle);
+    function tree(p0, p1, limit) {
+        let dx = p1.x - p0.x,
+            dy = p1.y - p0.y,
+            dist = Math.sqrt(dx * dx + dy * dy),
+            angle = Math.atan2(dy, dx),
+            branchLength = dist * (1 - trunkRatio),
+            pA = {
+                x: p0.x + dx * trunkRatio,
+                y: p0.y + dy * trunkRatio
+            },
+            pB = {
+                x: pA.x + Math.cos(angle + branchAngle) * branchLength,
+                y: pA.y + Math.sin(angle + branchAngle) * branchLength
+            },
+            pC = {
+                x: pA.x + Math.cos(angle - branchAngle) * branchLength,
+                y: pA.y + Math.sin(angle - branchAngle) * branchLength
+            };
 
         ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.lineTo(x1, y1);
-        ctx.strokeStyle = 'white';
-        ctx.lineWidth = depth;
+        ctx.moveTo(p0.x, p0.y);
+        ctx.lineTo(pA.x, pA.y);
         ctx.stroke();
 
-        drawTree(x1, y1, length * 0.8, angle - Math.PI / 6, depth - 1);
-        drawTree(x1, y1, length * 0.8, angle + Math.PI / 6, depth - 1);
+        if (limit > 0) {
+            tree(pA, pC, limit - 1);
+            tree(pA, pB, limit - 1);
+        } else {
+            ctx.beginPath();
+            ctx.moveTo(pB.x, pB.y);
+            ctx.lineTo(pA.x, pA.y);
+            ctx.lineTo(pC.x, pC.y);
+            ctx.stroke();
+        }
     }
-
-    // Initial call to draw the tree
-    drawTree(canvas.width / 2, canvas.height, 120, -Math.PI / 2, 12);
 </script>
+
+```
+<canvas id='fractal_tree'></canvas>
+
+<script type='module'>
+
+    // get and format canvas
+    const cnv = document.getElementById('fractal_tree');
+    const width = cnv.parentNode.scrollWidth;
+    const height = width * 9 / 16;
+    cnv.width = width;
+    cnv.height = height;
+
+    // get canvas context
+    const ctx = cnv.getContext('2d');
+
+    let p0 = {
+        x: width / 2,
+        y: height - 50
+    };
+    let p1 = {
+        x: width / 2,
+        y: 50
+    };
+    let branchAngle = Math.PI / 4;
+    let trunkRatio = 0.5;
+
+
+    tree(p0, p1, 15);
+
+    function tree(p0, p1, limit) {
+        let dx = p1.x - p0.x,
+            dy = p1.y - p0.y,
+            dist = Math.sqrt(dx * dx + dy * dy),
+            angle = Math.atan2(dy, dx),
+            branchLength = dist * (1 - trunkRatio),
+            pA = {
+                x: p0.x + dx * trunkRatio,
+                y: p0.y + dy * trunkRatio
+            },
+            pB = {
+                x: pA.x + Math.cos(angle + branchAngle) * branchLength,
+                y: pA.y + Math.sin(angle + branchAngle) * branchLength
+            },
+            pC = {
+                x: pA.x + Math.cos(angle - branchAngle) * branchLength,
+                y: pA.y + Math.sin(angle - branchAngle) * branchLength
+            };
+
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y);
+        ctx.lineTo(pA.x, pA.y);
+        ctx.stroke();
+
+        if (limit > 0) {
+            tree(pA, pC, limit - 1);
+            tree(pA, pB, limit - 1);
+        } else {
+            ctx.beginPath();
+            ctx.moveTo(pB.x, pB.y);
+            ctx.lineTo(pA.x, pA.y);
+            ctx.lineTo(pC.x, pC.y);
+            ctx.stroke();
+        }
+    }
+</script>
+```
