@@ -19,49 +19,51 @@ renderer.background('#cccccc');
 let random = new c2.Random();
 
 
-class Agent extends c2.Line {
+class Agent extends c2.Circle{
     constructor() {
-        let x1 = random.next(renderer.width);
-        let y1 = random.next(renderer.height);
-        let x2 = random.next(renderer.width);
-        let y2 = random.next(renderer.height);
-        super(x1, y1, x2, y2);
+        let x = random.next(renderer.width);
+        let y = random.next(renderer.height);
+        let r = random.next(10, renderer.width/15);
+        super(x, y, r);
 
-        this.v1 = new c2.Vector(random.next(-5, 5), random.next(-5, 5));
-        this.v2 = new c2.Vector(random.next(-5, 5), random.next(-5, 5));
-        this.weight = random.next(1, 5);
+        this.vx = random.next(-2, 2);
+        this.vy = random.next(-2, 2);
         this.color = c2.Color.hsl(random.next(0, 30), random.next(30, 60), random.next(20, 100));
     }
 
     update(){
-        this.bounce(this.p1, this.v1);
-        this.bounce(this.p2, this.v2);
+        this.p.x += this.vx;
+        this.p.y += this.vy;
+
+        if (this.p.x < this.r) {
+            this.p.x = this.r;
+            this.vx *= -1;
+        } else if (this.p.x > renderer.width-this.r) {
+            this.p.x = renderer.width-this.r;
+            this.vx *= -1;
+        }
+        if (this.p.y < this.r) {
+            this.p.y = this.r;
+            this.vy *= -1;
+        } else if (this.p.y > renderer.height-this.r) {
+            this.p.y = renderer.height-this.r;
+            this.vy *= -1;
+        }
     }
 
-    bounce(p, v){
-        p.x += v.x;
-        p.y += v.y;
+    display(){
+        renderer.stroke(false);
+        renderer.fill(this.color);
+        renderer.circle(this);
+    }
 
-        if (p.x < 0) {
-            p.x = 0;
-            v.x *= -1;
-        } else if (p.x > renderer.width) {
-            p.x = renderer.width;
-            v.x *= -1;
-        }
-        if (p.y < 0) {
-            p.y = 0;
-            v.y *= -1;
-        } else if (p.y > renderer.height) {
-            p.y = renderer.height;
-            v.y *= -1;
-        }
+    bounds(){
+      return this;
     }
 }
 
 let agents = [];
-for (let i = 0; i < 15; i++) agents[i] = new Agent();
-
+for (let i = 0; i < 25; i++) agents[i] = new Agent();
  const chars = "¶Ñ@%&∆∑∫#Wß¥$£√?!†§ºªµ¢çø∂æåπ*™≤≥≈∞~,.…_¬“‘˚`˙"
 
    const div = document.getElementById (`ascii_div`)
@@ -71,35 +73,63 @@ for (let i = 0; i < 15; i++) agents[i] = new Agent();
    renderer.draw (() => {
       renderer.clear ()
 
-      let delaunay = new c2.Delaunay ()
-      delaunay.compute (agents)
-      let vertices = delaunay.vertices
-      let edges = delaunay.edges
-      let triangles = delaunay.triangles
+    let quadTree = new c2.QuadTree(new c2.Rect(0,0,renderer.width,renderer.height), 1);
 
-      let maxArea = 0
-      let minArea = Number.POSITIVE_INFINITY;
-      for (let i = 0; i < triangles.length; i++) {
-         let area = triangles[i].area ()
-         if (area < minArea) minArea = area
-         if (area > maxArea) maxArea = area
-      }
+function drawQuadTree(quadTree){
+    renderer.stroke('#333333');
+    renderer.lineWidth(1);
+    renderer.fill(false);
+    renderer.rect(quadTree.bounds);
 
-      renderer.stroke (false)
-      for (let i = 0; i < triangles.length; i++) {
-         let t = c2.norm (triangles[i].area(), minArea, maxArea)
-         let color = c2.Color.hsl (315+30*t, 30+30*t, 20+80*t)
-         renderer.fill (color)
-         renderer.triangle (triangles[i])
-      }
+    if(quadTree.leaf()) return;
+    for(let i=0; i<4; i++) drawQuadTree(quadTree.children[i]);
+}
 
-      for (let i = 0; i < agents.length; i++) {
-         agents[i].update ()
-      }
+let circle = new c2.Circle(0, 0, renderer.width/10);
+
+
+renderer.draw(() => {
+    renderer.clear();
+
+    quadTree.clear();
+    quadTree.insert(agents);
+
+    drawQuadTree(quadTree);
+
+
+    for (let i = 0; i < agents.length; i++) {
+        agents[i].update();
+        agents[i].display();
+    }
+
+
+    let mouse = new c2.Point(renderer.mouse.x, renderer.mouse.y);
+    circle.p = mouse;
+
+    renderer.stroke('#000000');
+    renderer.lineWidth(1);
+    renderer.lineDash([5, 5]);
+    renderer.fill(false);
+    renderer.circle(circle);
+    renderer.lineDash(false);
+
+    let objects = quadTree.query(circle);
+
+    for(let i=0; i<objects.length; i++){
+        renderer.stroke('#000000');
+        renderer.lineWidth(1);
+        renderer.fill(false);
+        renderer.circle(objects[i]);
+    }
+
       
       const w = renderer.canvas.width
       const h = renderer.canvas.height
       const pixels = renderer.context.getImageData (0, 0, w, h).data
+      
+    //   const w = renderer.canvas.width
+    //   const h = renderer.canvas.height
+    //   const pixels = renderer.context.getImageData (0, 0, w, h).data
 
       let ascii_img = ``
 
@@ -119,6 +149,8 @@ for (let i = 0; i < 15; i++) agents[i] = new Agent();
       div.innerText = ascii_img
 
    })
+
+   })  
 
    function resize () {
       let parent = renderer.canvas.parentElement
