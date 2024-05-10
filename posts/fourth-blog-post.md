@@ -9,6 +9,8 @@ disable_html_sanitization: true
 
 ## I am excited so I have this extra line but here we go
 
+Tutorial from [https://www.youtube.com/watch?v=8JmoI4q7fTg&t=335s]
+
 <canvas id='fractal_tree'></canvas>
 
 <script type='module'>
@@ -95,7 +97,7 @@ disable_html_sanitization: true
         x: width / 2,
         y: height - 50
     };
-    //p1 will the top mid limmit
+    //p1 will the top mid limit
     let p1 = {
         x: width / 2,
         y: 50
@@ -147,3 +149,65 @@ disable_html_sanitization: true
     }
 </script>
 ```
+
+This is my fractal tree and I learned how to make this from the blog as well as a video tutorial on YouTube. The video explained again what are the concept of recursion and why is it important to understand this concept in able to make fractals. Recursion is a function that can call itself, by calling itself multiple times. It’s like a Russian doll where the more you open it, the more the smaller version gets revealed. Like this fractal tree, the tree branches out to smaller branches and it keeps getting smaller and smaller until it reaches it limits. During the process of making this fractal tree. I documented the process of understanding through my code comments.
+
+```
+let p0 = {
+        x: width / 2,
+        y: height - 50
+    };
+    //p1 will the top mid limit
+    let p1 = {
+        x: width / 2,
+        y: 50
+    };
+```
+
+when making this tree, we have set out the height of the tree, p0 is the bottom and p1 is the top of the tree. And then from there, we can create the branches of the tree. Call the three branches pA, pB and pC.
+
+```
+pA = {
+x: p0.x + dx _ trunkRatio,
+y: p0.y + dy _ trunkRatio
+},
+pB = {
+x: pA.x + Math.cos(angle + branchAngle) _ branchLength,
+y: pA.y + Math.sin(angle + branchAngle) _ branchLength
+},
+pC = {
+x: pA.x + Math.cos(angle - branchAngle) _ branchLength,
+y: pA.y + Math.sin(angle - branchAngle) _ branchLength
+};
+```
+
+Then here I created a recursive function to make the tree branches and for them to expand and call itself within the limit that we have set
+
+```
+function tree(p0, p1, limit) {
+let dx = p1.x - p0.x,
+dy = p1.y - p0.y,
+dist = Math.sqrt(dx _ dx + dy _ dy),
+angle = Math.atan2(dy, dx),
+branchLength = dist \* (1 - trunkRatio),
+```
+
+This is the limit setting for the branches, using boolean logic, to set out the the limit and create recursion so that the tree branches. If the setting fit in with the else condition, then the code will draw out new branches at pB and pC.
+
+```
+// limit setting for the branches
+if (limit > 0) {
+tree(pA, pC, limit - 1);
+tree(pA, pB, limit - 1);
+} else { // reached these limit and draw out branches
+ctx.beginPath();
+ctx.moveTo(pB.x, pB.y);
+ctx.lineTo(pA.x, pA.y);
+ctx.lineTo(pC.x, pC.y);
+ctx.stroke();
+}
+```
+
+Those are the three most essential codes that conduct and set out the limit for the recursive function. Mistakes were made as I kept getting errors but it was a human error with me forgetting comas and forgot to close my script tag. Other than that, it was a straightforward process.
+
+This process if expanded to more branches could be a perfect example of chaos with more complex shapes and branches and I could potentially expanded it for my assignment 2. Another form of recursive function like Barnsley ferns could be used to explain the concept of chaos
