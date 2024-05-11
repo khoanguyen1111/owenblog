@@ -116,7 +116,7 @@ disable_html_sanitization: true
 
  </script>
 
-```html
+```
 <canvas id="glitch_self_portrait"></canvas>
 
 <script type="module">
