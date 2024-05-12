@@ -130,6 +130,8 @@ disable_html_sanitization: true
         }
     }
 
+     const glitchSound = new Audio('/nature.mp3'); 
+
     // Start the glitch animation
     createBouncingTexts(); // Create initial bouncing texts
     glitchAnimation();
@@ -140,6 +142,8 @@ disable_html_sanitization: true
             hitMe = !hitMe; // Toggle animation
             if (hitMe) {
                 glitchAnimation(); // Start animation if toggled on
+                glitchSound.currentTime = 0;
+                glitchSound.play();
             }
         }
     });
@@ -381,8 +385,8 @@ BOUNCE TEXT, cool right, i don't know. So I added text but it bounce it of the w
 
     ```
 Right here we have the reason for its to bounce and goes all crazy. We set a condition for it to bounces off the two side, which are x and y of the canvas. For x, y we set a condition so that it must commit to the else, which are if this x is less then 0 and the x position passes the canvas width, then it will bounce off. For y , if the position went passed the canvas top and bottom, it will bounce off.
-````
 
+```
 const textArr = [];
 
     // Function to create bouncing texts
@@ -406,15 +410,13 @@ const textArr = [];
         textArr.push(new BouncingText(cnv.width / 2, cnv.height / 2, "SPACE", 90)); // Add bouncing text
         // Add more bouncing texts as needed
     }
-    ```
+
 
 From here we make the text array to create the floating text, you know, to have actual words,... Anyway, I put a bunch of I LOVE YOU text because I am feel like the word I love you is so pure from a kid to an old man and it carries such meaning to it that in this chaotic world, that sentence keep the world together. Also, Press Space, I gonna explain it later but for now this is this.
 I remember last assignment I missed out by not doing boolean logic, this time I remembered, so I added this
 
 ```
  let hitMe = true; // Boolean variable to control animation
-```
-
     function glitchAnimation() {
         // Clear canvas
         ctx.clearRect(0, 0, cnv.width, cnv.height);
@@ -440,7 +442,8 @@ I remember last assignment I missed out by not doing boolean logic, this time I 
         }
     });
 
-Finally, we concluded with this, the Press Space I added because when you commit that action of pressing space, I showed a still image of a green image or green background. I want to add a green colored background because I think it would calm the user down because green is the color of refreshing, of the color of lives with ree, a green space for user to calm down after looking at that crazy glitching screen.
+Finally, we concluded with this, the Press Space I added because when you commit that action of pressing space, I showed a still image of a green image or green background. I want to add a green colored background because I think it would calm the user down because green is the color of refreshing, of the color of lives with ree, a green space for user to calm down after looking at that crazy glitching screen. To add another texture, I added sounds to the code as well, when you click space bar, it will plays the bird chirping. I managed to get it when you clicked back from the green to the static glitch screen,which I found it was even more chaotic. 
 
 Step 4: Final word
 The process of making this was back and forth, I decided and have attempted to make a fractal tree but I don't like how it turned out to be. Luckily, glitch effect have so much areas to explores and during the process of making this, I have learnt a lot and with mistakes as well. I still believe there are a lot of areas that I can work on to make this code more interesting, I have tried to fix most of the mistakes and add more value for this one. I am happy with the result and looking forward to your opinion about this. See you on the next assignment.
+````

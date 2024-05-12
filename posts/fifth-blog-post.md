@@ -1,7 +1,7 @@
 ---
-title: HW WEEK5
+title: 5th blog post hehe
 published_at: 2024-03-29
-snippet:
+snippet: making glitch portrait
 disable_html_sanitization: true
 ---
 
