@@ -1,0 +1,17 @@
+---
+title: 9th blog hehe
+published_at: 
+snippet: I LOVE THE SINGER AND THE UNDERSTANDING OF AT3 (briefly)
+disable_html_sanitization: true
+---
+
+## HEY, WEEK 9 BLOGGGG
+# Here is what I have learn
+
+Obviously, during the class session today, it was a fun class due to our special guest. To hear his voice singing and to be participate in this large communities of people creative mindset. In addition to that, how the technology that I could possibly use to inspired me for assignment 3 was well implemented. I was not expecting how the we can use our phone as a tool to add more depth to his voice and what was even more shocking that how every devices in class was humming the same tune. It was something that I could not even think of before I sign in up for this class. Before I moved on to the actual homework task, I would like to say it was a pleasant experience that blew my mind how our coding could be implemented in such way that it help the community in such way. Thank you!
+
+Now sorry for taking such a long road, the work by McCarthy was in such way really effective and impactful in that time of the year. People were afraid to even shake each other hands and we still came up with a solution to keep socializing. It was not our actual voice but it was our actual words and feeling. Watching the video obviously gave me flashback to my experience back in the Covid-19 days, where socializing was through a screen and has multiple difficulties. McCarthy video if I would say it does belong in the category of interesting and also cute. Not only that it was something caught my attention off guard due to that was not how people socialize in those days, the video has provoking thoughts and emotions with the way that the weird robotic voices our thought. Due to how it affected my emotions, it was also cute with it touches my feelings when the people in the video was saying their thought but without their actual voices. The voices touched where I felt I was during those times and I would believed we all shared that same feelings.
+
+In term of how it affects the mycelial creativity, it deffinately left a huge impact and in my oppinion I would say it would be a good example of the creativity. The way that by creating in such a form that not only get peolple to get closer, without being closer than an arm length, it such a form of creativity that was so simple but impactful in many ways. A form of communication that let you not only to see each other but it was like being given a big hug to everyone by saying that we are in this together.
+
+If I would be honest about the time that I am writting this blog that I would have an idea about my AT3, I would be lying due to the amount of others assignment that I have for other classes. However, from this assignment, I would say that my domain is the group of people who looking to find a way to connect with each other. The repertoire could be how we are looking a way to shared all the memories together, could be through our experience and passion for something. I would need more time to think about this topic more and more due to how I am trying to manage my time to understand, my AT3 and what I would like to do with project. The project is so interesting but obviously so vauge and so open that it scares me to be more creative. 
